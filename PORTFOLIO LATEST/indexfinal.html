@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background: linear-gradient(-45deg,#0a0a0a,#111,#0a0a0a,#111);
+background-size:400% 400%;
+animation:gradientBG 20s ease infinite;
+color:#e5e5e5;
+overflow-x:hidden;
+}
+
+/* ANIMATED BACKGROUND */
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* NAVBAR */
+nav{
+position:fixed;
+width:100%;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 80px;
+background:rgba(15,15,15,0.95);
+backdrop-filter:blur(15px);
+z-index:1000;
+box-shadow:0 5px 20px rgba(0,0,0,0.5);
+transition:0.5s;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav h2{
+font-weight:700;
+font-size:28px;
+color:#00bfff;
+letter-spacing:1px;
+text-shadow:0 0 10px #00bfff;
+}
+
+nav a{
+color:#ccc;
+margin-left:25px;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#00bfff;
+transform:scale(1.1);
+text-shadow:0 0 10px #00bfff;
+}
+
+/* HOME */
+.home{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:120px 80px;
+position:relative;
+overflow:hidden;
+}
+
+.home-text{
+max-width:600px;
+z-index:2;
+animation:fadeInUp 1s ease forwards;
+}
+
+.home-text h1{
+font-size:60px;
+line-height:1.2;
+color:#fff;
+text-shadow:0 0 20px #00bfff,0 0 40px #ff4d6d;
+}
+
+.home-text span{
+color:#00bfff;
+}
+
+.home-text p{
+margin-top:15px;
+color:#bbb;
+font-size:18px;
+line-height:1.6;
+}
+
+/* PROFILE IMAGE */
+.profile-box{
+position:relative;
+width:400px;
+height:400px;
+flex-shrink:0;
+z-index:2;
+transition:0.5s;
+animation:float 6s ease-in-out infinite alternate;
+}
+
+.profile{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+transition:0.5s;
+box-shadow:0 0 50px #00bfff,0 0 80px #ff4d6d,0 0 100px #00bfff inset;
+}
+
+.profile:hover{
+transform:scale(1.2) rotate(5deg);
+box-shadow:0 0 100px #00bfff,0 0 140px #ff4d6d,0 0 150px #00bfff inset;
+}
+
+/* FLOATING BACKDROP */
+.profile-box::before{
+content:"";
+position:absolute;
+top:-30px;
+left:-30px;
+width:450px;
+height:450px;
+border-radius:50%;
+background:linear-gradient(45deg,#00bfff,#ff4d6d,#00bfff);
+filter:blur(80px);
+z-index:-1;
+animation:rotateShape 30s linear infinite;
+}
+
+@keyframes rotateShape{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-30px);}
+}
+
+@keyframes fadeInUp{
+0%{opacity:0; transform:translateY(50px);}
+100%{opacity:1; transform:translateY(0);}
+}
+
+/* SECTION */
+section{
+padding:120px 80px;
+position:relative;
+opacity:0;
+animation:fadeSection 1s forwards;
+animation-delay:0.3s;
+}
+
+@keyframes fadeSection{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* TITLES */
+.title{
+text-align:center;
+margin-bottom:50px;
+font-size:38px;
+letter-spacing:1px;
+position:relative;
+color:#fff;
+text-shadow:0 0 15px #00bfff;
+}
+
+.title::after{
+content:"";
+width:90px;
+height:3px;
+background:linear-gradient(90deg,#00bfff,#ff4d6d,#00bfff);
+display:block;
+margin:15px auto 0;
+border-radius:5px;
+}
+
+/* EDUCATION */
+.education{
+max-width:800px;
+margin:auto;
+text-align:center;
+line-height:1.8;
+color:#bbb;
+background:rgba(255,255,255,0.02);
+padding:50px 40px;
+border-radius:25px;
+box-shadow:0 0 80px rgba(0,191,255,0.15);
+transition:0.5s;
+}
+
+.skills{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:30px;
+}
+
+.skill{
+background:linear-gradient(135deg,#00bfff,#ff4d6d);
+padding:16px 32px;
+border-radius:35px;
+color:#fff;
+font-weight:700;
+transition:0.4s;
+box-shadow:0 5px 25px rgba(0,0,0,0.3);
+}
+
+.skill:hover{
+transform:scale(1.1);
+box-shadow:0 15px 50px rgba(0,191,255,0.5);
+}
+
+/* PROJECTS */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:40px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:25px;
+transition:0.6s;
+position:relative;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.card:hover{
+transform:translateY(-20px);
+box-shadow:0 0 80px #00bfff,0 0 100px #ff4d6d;
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:20px;
+transition:0.5s;
+}
+
+.card:hover img{
+transform:scale(1.12);
+}
+
+.card h3{
+margin-top:15px;
+color:#00bfff;
+text-shadow:0 0 10px #00bfff;
+}
+
+.card p{
+margin-top:10px;
+color:#ccc;
+line-height:1.5;
+font-size:15px;
+}
+
+/* BUTTON */
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:14px 32px;
+border-radius:30px;
+border:2px solid #00bfff;
+color:#00bfff;
+cursor:pointer;
+transition:0.5s;
+margin-right:5px;
+font-weight:700;
+box-shadow:0 0 10px #00bfff;
+}
+
+.btn:hover{
+background:linear-gradient(45deg,#00bfff,#ff4d6d);
+color:#fff;
+transform:scale(1.1);
+box-shadow:0 0 30px #00bfff,0 0 40px #ff4d6d;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.modal-content{
+width:85%;
+height:85%;
+background:rgba(20,20,20,0.95);
+border-radius:25px;
+padding:25px;
+position:relative;
+animation:fadeIn 0.3s ease;
+box-shadow:0 15px 60px rgba(0,191,255,0.4);
+}
+
+.modal iframe{
+width:100%;
+height:85%;
+border:none;
+border-radius:15px;
+}
+
+.close{
+position:absolute;
+top:15px;
+right:25px;
+font-size:32px;
+cursor:pointer;
+color:white;
+transition:0.3s;
+}
+
+.close:hover{
+color:#00bfff;
+transform:scale(1.2);
+}
+
+/* MODAL BUTTONS */
+.modal-buttons{
+text-align:center;
+margin-top:15px;
+}
+
+.modal-buttons button{
+padding:12px 22px;
+margin:5px;
+border:none;
+background:linear-gradient(45deg,#00bfff,#ff4d6d);
+color:white;
+border-radius:18px;
+cursor:pointer;
+font-weight:700;
+transition:0.3s;
+box-shadow:0 0 15px #00bfff;
+}
+
+.modal-buttons button:hover{
+transform:scale(1.1);
+box-shadow:0 0 30px #00bfff,0 0 35px #ff4d6d;
+}
+
+/* CONTACT SECTION */
+.contact-section{
+background:rgba(255,255,255,0.02);
+padding:120px 80px;
+border-radius:30px;
+margin:50px auto;
+max-width:900px;
+box-shadow:0 0 80px rgba(0,191,255,0.15);
+text-align:center;
+animation:fadeInUp 1s ease forwards;
+}
+
+.contact-section h2{
+color:#00bfff;
+margin-bottom:40px;
+text-shadow:0 0 15px #00bfff;
+}
+
+.contact-card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:30px;
+margin:20px 0;
+box-shadow:0 20px 50px rgba(0,0,0,0.5);
+transition:0.4s;
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.contact-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 80px #00bfff,0 0 100px #ff4d6d;
+}
+
+.contact-card p{
+font-size:16px;
+color:#ccc;
+margin:12px 0;
+}
+
+.contact-card a{
+color:#00bfff;
+text-decoration:none;
+transition:0.3s;
+}
+
+.contact-card a:hover{
+color:#ff4d6d;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:50px 20px;
+color:#777;
+background:#0a0a0a;
+border-top:1px solid rgba(255,255,255,0.1);
+letter-spacing:1px;
+text-shadow:0 0 5px #00bfff;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:scale(0.8);}
+to{opacity:1; transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<h2>Portfolio</h2>
+<div>
+<a href="#home">Home</a>
+<a href="#education">Education</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<!-- HOME -->
+<section class="home" id="home">
+
+<div class="home-text">
+<h1>THIS IS MY <span>ANALYTICS PORTFOLIO</span></h1>
+<p>Professional portfolio showcasing my Practice and Midterm Tasks in Web Development.</p>
+</div>
+
+<div class="profile-box">
+<img src="pdfs/KHERWIN.jpg" class="profile">
+</div>
+
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+<h2 class="title">Education & Skills</h2>
+
+<div class="education">
+<p>
+Bachelor of Science in Computer Science  
+<br>
+Focused on Web Development, Systems Design, and Analytics.
+</p>
+
+<div class="skills">
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">PHP</div>
+<div class="skill">SQL</div>
+<div class="skill">Analytics</div>
+</div>
+
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+
+<h2 class="title">Practice & Midterm Tasks</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="png/TASK 2.png" alt="Practice Task 2">
+<h3>Practice Task 2</h3>
+<p>Description: Responsive web layout using HTML and CSS.</p>
+<div class="btn" onclick="openModal([
+'pdfs/PracticeTask2_KENTKHERWIN_D_DELAROSA.xlsx - Analyze.pdf',
+'pdfs/PracticeTask2_KENTKHERWIN_D_DELAROSA.xlsx - Dashboard.pdf',
+'pdfs/PracticeTask2_KENTKHERWIN_D_DELAROSA.xlsx - Data.pdf'
+])">View Task</div>
+</div>
+
+<div class="card">
+<img src="png/TASK3.png" alt="Practice Task 3">
+<h3>Practice Task 3</h3>
+<p>Description: Form validation using JavaScript.</p>
+<div class="btn" onclick="openModal([
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Logical - AND.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Logical - IF.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Logical - IFERROR.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Logical - Nested IFs.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Logical - OR.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Text - TRIM.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Text - TEXT.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Text - LOWER.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Text - Exact.pdf',
+'pdfs/PracticeTask3_DELAROSA.KENT_CONCEPCION.JUSTINE - Text - CONCATENATE.pdf'
+])">View Task</div>
+</div>
+
+<div class="card">
+<img src="png/TASK4.png" alt="Practice Task 4">
+<h3>Practice Task 4</h3>
+<p>Description: Interactive UI design and animations.</p>
+<div class="btn" onclick="openModal(['pdfs/salesProject_Dela_Rosa.xlsx - Sheet1.pdf'])">View Task</div>
+</div>
+
+<div class="card">
+<img src="png/MTASK1.png" alt="Midterm Task 1">
+<h3>Midterm Task 1</h3>
+<p>Description: Full system design and implementation.</p>
+<div class="btn" onclick="openModal([
+'pdfs/DataModel.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - Clean Data.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - col-dim.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - country_dim.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - Dirty Data.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - model_dim.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - revenue_fact.pdf',
+'pdfs/BIKE_SALES_LAB_DELAROSA.xlsx - state_dim.pdf'
+])">View Task</div>
+</div>
+
+<div class="card">
+<img src="png/MTASK2.png" alt="Midterm Task 2">
+<h3>Midterm Task 2</h3>
+<p>Description: Advanced web application project.</p>
+<div class="btn" onclick="openModal(['pdfs/MTASK2.pdf'])">View Task</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+<h2>Contact Me</h2>
+
+<div class="contact-card">
+<p>Email: <a href="mailto:kkdelarosa23-0130@cca.edu.ph">kkdelarosa23-0130@cca.edu.ph</a></p>
+<p>Phone: <a href="tel:+639912737236">+63 991 273 7236</a></p>
+<p>: <a href="https://www.facebook.com/kentkherwin.delarosa" target="_blank">Facebook profile</a></p>
+<p>GitHub: <a href="https://github.com/KherwinKent" target="_blank">github.com/KherwinKent</a></p>
+</div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">&times;</span>
+
+<iframe id="pdfViewer">Your browser does not support PDFs. <a href="">Download PDF</a></iframe>
+
+<div class="modal-buttons">
+<button onclick="prevPDF()">Prev</button>
+<button onclick="nextPDF()">Next</button>
+</div>
+
+</div>
+</div>
+
+<footer>
+<p>© 2026 Analytics Portfolio</p>
+</footer>
+
+<script>
+let pdfList = [];
+let currentIndex = 0;
+
+function openModal(files){
+pdfList = files;
+currentIndex = 0;
+
+document.getElementById("modal").style.display = "flex";
+document.getElementById("pdfViewer").src = pdfList[currentIndex];
+}
+
+function closeModal(){
+document.getElementById("modal").style.display = "none";
+document.getElementById("pdfViewer").src = "";
+}
+
+function nextPDF(){
+if(currentIndex < pdfList.length - 1){
+currentIndex++;
+document.getElementById("pdfViewer").src = pdfList[currentIndex];
+}
+}
+
+function prevPDF(){
+if(currentIndex > 0){
+currentIndex--;
+document.getElementById("pdfViewer").src = pdfList[currentIndex];
+}
+}
+</script>
+
+</body>
+</html>
